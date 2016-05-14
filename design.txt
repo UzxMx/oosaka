@@ -1,0 +1,38 @@
+使用json格式
+
+>>连接上之后，客户端发送信息：
+app_id, device_id
+
+<<如果在服务端没有注册，则服务端请求获得详细信息：
+对于android:
+操作系统版本
+生产商
+是否root
+语言
+地理位置
+时区
+
+message format:
+json + boundary
+
+json: id, command, type: info, query, resp,
+
+客户端 -> 服务端
+
+{
+	"type": "info",
+	"command": "send_identity"
+	"content": {
+	
+	}
+}
+
+
+服务端 -> 客户端
+
+{
+	"id": "",
+	"type": "",
+	"command": ""
+}
+

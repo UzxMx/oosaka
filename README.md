@@ -1,0 +1,1 @@
+After copying, update text in config/database.yml file.
