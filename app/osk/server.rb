@@ -134,9 +134,12 @@ module Osk
 		def message_found(data)
 			logger.debug("size: #{@str_buffer.string.length}: #{@str_buffer.string}")
 
-			message = JSON.parse(@str_buffer.string)
-			@str_buffer = StringIO.new
-			@request_handler.handle_request(message, data)
+			begin
+				message = JSON.parse(@str_buffer.string)
+				@str_buffer = StringIO.new
+				@request_handler.handle_request(message, data)
+			rescue Exception => e
+			end
 		end
 
 		def send_message(type, command, id, content)
