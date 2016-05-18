@@ -88,7 +88,7 @@ module Osk
 		end
 
 		def post_init
-			logger.debug "-- someone connected to the echo server!"
+			logger.debug "-- someone connected to the server!"
 		end
 
 		def on_connection_bound
@@ -169,7 +169,7 @@ module Osk
 				AppConnectionManager.remove_connection(user.id)
 			end
 
-			logger.debug "-- someone disconnected from the echo server!"
+			logger.debug "-- someone disconnected from the server!"
 		end
 	end
 

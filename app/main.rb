@@ -6,12 +6,28 @@ Bundler.require(:default)
 
 require './osk'
 require './osk/server'
+require 'optparse'
 require 'logger'
 
 class Main
 	include Osk
 
+	def parse_arguments(arguments)
+		options = {}
+
+		OptionParser.new do |opt|
+			opt.banner = "Usage: ruby main.rb [options]"
+			opt.on("-e", "--environment=name", String, "Specifies the environment to run servers under (development/production).", "Default: development") { |v| options[:environment] = v.strip }
+
+			opt.parse!(arguments)
+		end
+
+		options
+	end
+
 	def main
+		options = parse_arguments(ARGV)
+
 		Osk.logger = Logger.new(STDOUT)
 		Osk.logger.level = Logger::DEBUG
 
@@ -24,7 +40,12 @@ class Main
 
 		# ActiveRecord::Base.default_timezone = 'Beijing'
 
-		environment = 'development'
+		if options[:environment]
+			environment = options[:environment]
+		else
+			environment = 'development'
+		end
+
 		db_config = YAML::load(File.open(File.expand_path('../../config/database.yml', __FILE__)))[environment]
 		ActiveRecord::Base.establish_connection(db_config)
 
