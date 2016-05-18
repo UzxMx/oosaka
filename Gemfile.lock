@@ -31,7 +31,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord (= 4.2.4)
   eventmachine
-  pg
+  pg (= 0.18.4)
 
 BUNDLED WITH
    1.10.6

@@ -31,7 +31,11 @@ namespace :db do
 
 	desc "Drop the database"
 	task :drop do
-		ActiveRecord::Base.establish_connection(db_config)
+		if db_config['adapter'] == 'mysql'
+			ActiveRecord::Base.establish_connection(db_config)
+		elsif db_config['adapter'] == 'postgresql'
+			ActiveRecord::Base.establish_connection(db_config.merge('database' => 'postgres'))
+		end		
 		ActiveRecord::Base.connection.drop_database(db_config['database'])
 		puts "Database dropped"
 	end
